@@ -3,7 +3,9 @@ import User from "./getuser/User";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AddUser from "./adduser/adduser";
 import UpdateUser from "./updateuser/updateuser";
+import Login from "./login/Login"; 
 function App() {
+  const token = localStorage.getItem("token"); // vérifier si connecté
   return (
     <Router>
       <div className="App">
