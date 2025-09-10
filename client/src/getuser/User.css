@@ -1,0 +1,88 @@
+/* Conteneur principal du tableau */
+.userTable {
+  width: 90%; /* plus flexible pour petits écrans */
+  max-width: 1000px;
+  margin: 50px auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* ombre plus douce */
+  overflow-x: auto; /* scroll horizontal si nécessaire */
+}
+
+/* Tableau */
+.userTable table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* En-tête du tableau */
+.userTable table thead th {
+  background-color: darkcyan;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Corps du tableau */
+.userTable table tbody td {
+  padding: 12px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 14px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Hover sur les lignes pour effet visuel */
+.userTable table tbody tr:hover {
+  background-color: #f9f9f9;
+  transition: background-color 0.2s;
+}
+
+/* Boutons d'action */
+.actionButtons button,
+.actionButtons .btn {
+  margin: 0 5px;
+  vertical-align: middle;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+.actionButtons button:hover,
+.actionButtons .btn:hover {
+  transform: scale(1.05);
+}
+
+/* Bouton Add User */
+.btn-primary {
+  background-color: darkcyan;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #00796b;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .userTable {
+    padding: 20px;
+  }
+
+  .userTable table thead th,
+  .userTable table tbody td {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .actionButtons button,
+  .actionButtons .btn {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}

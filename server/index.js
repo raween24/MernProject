@@ -3,17 +3,22 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import route from "./routes/userRoute.js";
+import cors from "cors"; 
+import authRoute from "./routes/authRoute.js";
 
 // Load environment variables FIRST
 dotenv.config();
 
 const app = express();
+// Autoriser toutes les origines (test)
+app.use(cors());
+
 
 // Middleware
 app.use(bodyParser.json());
 
 // Get environment variables
-const PORT = process.env.PORT || 7000;
+const PORT = process.env.PORT || 8000;
 const MONGOURL = process.env.MONGOURL;
 
 // Check if MongoDB URI is provided
@@ -38,3 +43,4 @@ mongoose.connect(MONGOURL)
 
 // Routes
 app.use("/api", route);
+app.use("/api/auth", authRoute);
