@@ -9,9 +9,6 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String     // 👈 optionnel maintenant
   },
-  adresse: {
-    type: String     // 👈 optionnel maintenant
-  },
   password: {
     type: String,
     required: true   // 👈 obligatoire

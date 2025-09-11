@@ -35,17 +35,21 @@ useEffect(() => {
   };
 
   return (
-    <div className="userTable">
-      <Link to="/add" className="btn btn-primary mb-3">
-        Add User
-      </Link>
-      <table className="table table-bordered">
+  <div className="user-container">
+    <div className="user-content">
+      <div className="user-header">
+        <h1 className="user-title">Users Management</h1>
+        <Link to="/add" className="add-user-btn">
+          Add User
+        </Link>
+      </div>
+      
+      <table className="user-table">
         <thead>
           <tr>
             <th>S.No.</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Address</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -55,7 +59,6 @@ useEffect(() => {
               <td>{index + 1}</td>
               <td>{user.name}</td>
               <td>{user.email}</td>
-              <td>{user.address}</td>
               <td>
                 <Link to={`/update/${user._id}`} className="btn btn-info me-2">
                   Edit
@@ -72,7 +75,7 @@ useEffect(() => {
         </tbody>
       </table>
     </div>
-  );
-};
+  </div>
+);}
 
 export default User;
