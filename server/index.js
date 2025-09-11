@@ -10,12 +10,23 @@ import authRoute from "./routes/authRoute.js";
 dotenv.config();
 
 const app = express();
-// Autoriser toutes les origines (test)
-app.use(cors());
-
 
 // Middleware
 app.use(bodyParser.json());
+
+// ✅ Configuration CORS SIMPLIFIÉE et FONCTIONNELLE
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}));
+
+// ✅ Gestion MANUELLE des requêtes OPTIONS (SANS "*")
+app.options("/api/auth/login", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.status(200).end();
+});
 
 // Get environment variables
 const PORT = process.env.PORT || 8000;
@@ -24,7 +35,6 @@ const MONGOURL = process.env.MONGOURL;
 // Check if MongoDB URI is provided
 if (!MONGOURL) {
     console.error("ERROR: MONGOURL is not defined in .env file");
-    console.error("Please create a .env file with MONGOURL=mongodb://localhost:27017/MernConnection");
     process.exit(1);
 }
 
@@ -44,3 +54,8 @@ mongoose.connect(MONGOURL)
 // Routes
 app.use("/api", route);
 app.use("/api/auth", authRoute);
+
+// ✅ Route test
+app.get("/", (req, res) => {
+  res.json({ message: "Backend server is running!", status: "OK" });
+});
