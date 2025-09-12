@@ -25,7 +25,7 @@ const AddUser = () => {
         },
       });
       toast.success("User added successfully");
-      navigate("/"); // retourne à la liste
+      navigate("/users"); // retourne à la liste
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Error adding user");

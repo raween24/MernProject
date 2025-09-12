@@ -35,6 +35,7 @@
   background-clip: text;
 }
 
+/* Modifiez aussi le style du bouton Add User pour plus de cohérence */
 .add-user-btn {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -46,9 +47,11 @@
   text-decoration: none;
   transition: all 0.3s ease;
   display: inline-block;
+  text-align: center;
 }
 
 .add-user-btn:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b5b95 100%);
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
   color: white;
@@ -204,4 +207,47 @@
 .empty-state p {
   font-size: 1.1rem;
   margin: 0;
+}
+/* User.css - Ajoutez ces styles pour le bouton logout */
+
+.header-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.logout-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #ee5a52 0%, #d43f3a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+  color: white;
+}
+
+/* Responsive pour les boutons header */
+@media (max-width: 768px) {
+  .header-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+  
+  .add-user-btn,
+  .logout-btn {
+    width: 100%;
+    text-align: center;
+  }
 }
