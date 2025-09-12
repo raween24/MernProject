@@ -8,7 +8,6 @@ const AddUser = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    addresse: "",
     password: "",
   });
 
@@ -51,15 +50,6 @@ const AddUser = () => {
           name="email"
           placeholder="Email"
           value={formData.email}
-          onChange={handleChange}
-          required
-          className="form-control mb-2"
-        />
-        <input
-          type="text"
-          name="addresse"
-          placeholder="Address"
-          value={formData.addresse}
           onChange={handleChange}
           required
           className="form-control mb-2"
