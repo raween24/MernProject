@@ -1,0 +1,194 @@
+/* ============================= */
+/* 🎨 Background animé créatif */
+/* ============================= */
+.add-creative-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ============================= */
+/* ✨ Floating shapes */
+/* ============================= */
+.add-floating-shapes .add-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float 8s ease-in-out infinite;
+}
+
+.add-shape-1 {
+  width: 200px;
+  height: 200px;
+  background: #ff6b6b;
+  top: 10%;
+  left: 5%;
+}
+.add-shape-2 {
+  width: 150px;
+  height: 150px;
+  background: #6bcff6;
+  bottom: 15%;
+  right: 8%;
+  animation-delay: 2s;
+}
+.add-shape-3 {
+  width: 120px;
+  height: 120px;
+  background: #feca57;
+  top: 20%;
+  right: 20%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-25px); }
+}
+
+/* ============================= */
+/* 🪟 Card principale */
+/* ============================= */
+.add-creative-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================= */
+/* 📝 Header */
+/* ============================= */
+.add-creative-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.add-creative-icon {
+  font-size: 2.5rem;
+  color: #ff6b6b;
+  margin-bottom: 10px;
+}
+
+.add-creative-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, #ff6b6b, #6bcff6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.add-creative-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* ============================= */
+/* 🔑 Formulaire */
+/* ============================= */
+.add-creative-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.add-input-group {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 2px solid #e1e5e9;
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.add-input-group:focus-within {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+  transform: translateY(-2px);
+}
+
+.add-input-icon {
+  margin-right: 12px;
+  font-size: 1.2rem;
+  color: #ff6b6b;
+}
+
+.add-input-group input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 1rem;
+  background: transparent;
+}
+
+/* ============================= */
+/* 🚀 Bouton */
+/* ============================= */
+.add-button-group {
+  margin-top: 10px;
+}
+
+.add-creative-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff6b6b, #6bcff6);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+  transition: all 0.3s ease;
+}
+
+.add-creative-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: linear-gradient(135deg, #6bcff6, #ff6b6b);
+  box-shadow: 0 12px 25px rgba(255, 107, 107, 0.4);
+}
+
+/* ============================= */
+/* 📱 Responsive */
+/* ============================= */
+@media (max-width: 576px) {
+  .add-creative-card {
+    padding: 25px 20px;
+  }
+  .add-creative-title {
+    font-size: 1.5rem;
+  }
+}

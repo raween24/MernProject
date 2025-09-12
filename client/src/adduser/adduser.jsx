@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { FaUser, FaEnvelope, FaLock, FaPlus } from "react-icons/fa";
+import "./add.css";
 
 const AddUser = () => {
   const navigate = useNavigate();
@@ -11,8 +12,11 @@ const AddUser = () => {
     password: "",
   });
 
+  const [errorMsg, setErrorMsg] = useState(""); // Pour afficher le message d'erreur
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.name === "email") setErrorMsg(""); // Reset message si email change
   };
 
   const handleSubmit = async (e) => {
@@ -20,53 +24,86 @@ const AddUser = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post("http://localhost:8000/api/user", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-      toast.success("User added successfully");
-      navigate("/users"); // retourne à la liste
+      alert("User added successfully"); // Message succès
+      navigate("/users");
     } catch (error) {
-      console.log(error);
-      toast.error(error.response?.data?.message || "Error adding user");
+      // Vérifie si l'utilisateur existe déjà
+      if (error.response?.data?.message === "User already exists") {
+        setErrorMsg("This email is already registered!");
+      } else {
+        setErrorMsg(error.response?.data?.message || "Error adding user");
+      }
     }
   };
 
   return (
-    <div className="container mt-3">
-      <h2>Add User</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          className="form-control mb-2"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          className="form-control mb-2"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-          className="form-control mb-2"
-        />
-        <button type="submit" className="btn btn-success">
-          Add
-        </button>
-      </form>
+    <div className="add-creative-container">
+      {/* Background animé */}
+      <div className="add-creative-background">
+        <div className="add-floating-shapes">
+          <div className="add-shape add-shape-1"></div>
+          <div className="add-shape add-shape-2"></div>
+          <div className="add-shape add-shape-3"></div>
+        </div>
+      </div>
+
+      {/* Carte */}
+      <div className="add-creative-card">
+        <div className="add-creative-header">
+          <div className="add-creative-icon"><FaPlus /></div>
+          <h2 className="add-creative-title">Add User</h2>
+          <p className="add-creative-subtitle">Fill the form to create a new account</p>
+        </div>
+
+        {/* Formulaire */}
+        <form className="add-creative-form" onSubmit={handleSubmit}>
+          <div className="add-input-group">
+            <FaUser className="add-input-icon" />
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="add-input-group">
+            <FaEnvelope className="add-input-icon" />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          {/* Message d'erreur email */}
+          {errorMsg && <p className="add-error-msg">{errorMsg}</p>}
+
+          <div className="add-input-group">
+            <FaLock className="add-input-icon" />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="add-button-group">
+            <button type="submit" className="add-creative-btn">
+              <FaPlus /> Add
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
