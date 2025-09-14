@@ -1,4 +1,4 @@
-/* updateuser.css */
+
 .update-creative-container {
   min-height: 100vh;
   display: flex;
@@ -213,7 +213,7 @@
   transform: none !important;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .update-creative-container {
     padding: 15px;

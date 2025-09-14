@@ -1,6 +1,4 @@
-/* ============================= */
-/* 🎨 Background animé créatif */
-/* ============================= */
+
 .add-creative-container {
   position: relative;
   width: 100%;
@@ -21,9 +19,7 @@
   100% { background-position: 0% 50%; }
 }
 
-/* ============================= */
-/* ✨ Floating shapes */
-/* ============================= */
+
 .add-floating-shapes .add-shape {
   position: absolute;
   border-radius: 50%;
@@ -60,9 +56,7 @@
   50% { transform: translateY(-25px); }
 }
 
-/* ============================= */
-/* 🪟 Card principale */
-/* ============================= */
+
 .add-creative-card {
   position: relative;
   background: rgba(255, 255, 255, 0.9);
@@ -81,9 +75,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ============================= */
-/* 📝 Header */
-/* ============================= */
 .add-creative-header {
   text-align: center;
   margin-bottom: 25px;
@@ -110,9 +101,7 @@
   margin-top: 5px;
 }
 
-/* ============================= */
-/* 🔑 Formulaire */
-/* ============================= */
+
 .add-creative-form {
   display: flex;
   flex-direction: column;
@@ -150,9 +139,6 @@
   background: transparent;
 }
 
-/* ============================= */
-/* 🚀 Bouton */
-/* ============================= */
 .add-button-group {
   margin-top: 10px;
 }
@@ -181,9 +167,6 @@
   box-shadow: 0 12px 25px rgba(255, 107, 107, 0.4);
 }
 
-/* ============================= */
-/* 📱 Responsive */
-/* ============================= */
 @media (max-width: 576px) {
   .add-creative-card {
     padding: 25px 20px;

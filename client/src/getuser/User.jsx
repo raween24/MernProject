@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Ajoutez useNavigate
+import { Link, useNavigate } from "react-router-dom"; 
 import axios from "axios";
 import toast from "react-hot-toast";
 import "./User.css";
 
 const User = () => {
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate(); // Ajoutez useNavigate
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,11 +35,11 @@ const User = () => {
     }
   };
 
-  // Fonction pour se déconnecter
+  
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Supprime le token
+    localStorage.removeItem("token"); 
     toast.success("Déconnexion réussie");
-    navigate("/login"); // Redirige vers la page login
+    navigate("/login"); 
   };
 
   return (

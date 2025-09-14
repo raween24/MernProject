@@ -14,7 +14,6 @@ const Login = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     
-    // Validation en temps réel
     validateField(name, value);
   };
 

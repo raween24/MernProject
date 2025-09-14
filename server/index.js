@@ -6,21 +6,18 @@ import route from "./routes/userRoute.js";
 import cors from "cors"; 
 import authRoute from "./routes/authRoute.js";
 
-// Load environment variables FIRST
+
 dotenv.config();
 
 const app = express();
 
-// Middleware
-app.use(bodyParser.json());
 
-// ✅ Configuration CORS SIMPLIFIÉE et FONCTIONNELLE
+app.use(bodyParser.json());
 app.use(cors({
   origin: "http://localhost:3000",
   credentials: true
 }));
 
-// ✅ Gestion MANUELLE des requêtes OPTIONS (SANS "*")
 app.options("/api/auth/login", (req, res) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -28,17 +25,13 @@ app.options("/api/auth/login", (req, res) => {
   res.status(200).end();
 });
 
-// Get environment variables
 const PORT = process.env.PORT || 8000;
 const MONGOURL = process.env.MONGOURL;
 
-// Check if MongoDB URI is provided
 if (!MONGOURL) {
     console.error("ERROR: MONGOURL is not defined in .env file");
     process.exit(1);
 }
-
-// MongoDB connection
 mongoose.connect(MONGOURL)
     .then(() => {
         console.log("DB connected successfully.");
@@ -51,11 +44,10 @@ mongoose.connect(MONGOURL)
         process.exit(1);
     });
 
-// Routes
 app.use("/api", route);
 app.use("/api/auth", authRoute);
 
-// ✅ Route test
+
 app.get("/", (req, res) => {
   res.json({ message: "Backend server is running!", status: "OK" });
 });

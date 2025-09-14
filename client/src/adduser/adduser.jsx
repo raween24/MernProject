@@ -12,11 +12,11 @@ const AddUser = () => {
     password: "",
   });
 
-  const [errorMsg, setErrorMsg] = useState(""); // Pour afficher le message d'erreur
+  const [errorMsg, setErrorMsg] = useState(""); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (e.target.name === "email") setErrorMsg(""); // Reset message si email change
+    if (e.target.name === "email") setErrorMsg(""); 
   };
 
   const handleSubmit = async (e) => {
@@ -26,10 +26,10 @@ const AddUser = () => {
       await axios.post("http://localhost:8000/api/user", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      alert("User added successfully"); // Message succès
+      alert("User added successfully"); 
       navigate("/users");
     } catch (error) {
-      // Vérifie si l'utilisateur existe déjà
+      
       if (error.response?.data?.message === "User already exists") {
         setErrorMsg("This email is already registered!");
       } else {

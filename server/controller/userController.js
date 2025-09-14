@@ -1,8 +1,8 @@
-import User from "../model/userModele.js"; // casse exacte
+import User from "../model/userModele.js"; 
 
 export const create = async (req, res) => {
     try {
-        const { email } = req.body; // prends l'email directement de la requête
+        const { email } = req.body; 
         const userExist = await User.findOne({ email });
 
         if (userExist) {
@@ -12,20 +12,20 @@ export const create = async (req, res) => {
         const newUser = new User(req.body);
         const saveData = await newUser.save();
 
-        res.status(201).json(saveData); // res.status et non req.status
+        res.status(201).json(saveData); 
     } catch (error) {
         res.status(500).json({ errorMessage: error.message });
     }
 };
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await User.find(); // récupère tous les utilisateurs
+        const users = await User.find(); 
         res.status(200).json(users);
     } catch (error) {
         res.status(500).json({ errorMessage: error.message });
     }
 };
-// Get user by ID (sans _id et __v)
+
 export const getUserById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -40,18 +40,14 @@ export const getUserById = async (req, res) => {
     res.status(500).json({ errorMessage: error.message });
   }
 };
-
-// Update user by ID
 export const updateUser = async (req, res) => {
   try {
-    const { id } = req.params;          // récupère l'id de l'URL
-    const updateData = req.body;         // données à mettre à jour
-
-    // findByIdAndUpdate(id, update, options)
+    const { id } = req.params;          
+    const updateData = req.body;         
     const updatedUser = await User.findByIdAndUpdate(
       id,
       updateData,
-      { new: true, runValidators: true } // renvoie le document mis à jour
+      { new: true, runValidators: true } 
     );
 
     if (!updatedUser) {
@@ -63,7 +59,7 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ errorMessage: error.message });
   }
 };
-// Supprimer un utilisateur par ID
+
 export const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
