@@ -5,18 +5,17 @@ import dotenv from "dotenv";
 import route from "./routes/userRoute.js";
 import cors from "cors"; 
 import authRoute from "./routes/authRoute.js";
-
-
+import logroute from "./routes/logroute.js"
 dotenv.config();
 
+
 const app = express();
-
-
 app.use(bodyParser.json());
 app.use(cors({
   origin: "http://localhost:3000",
   credentials: true
 }));
+
 
 app.options("/api/auth/login", (req, res) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -46,6 +45,7 @@ mongoose.connect(MONGOURL)
 
 app.use("/api", route);
 app.use("/api/auth", authRoute);
+app.use("/api/logs", logroute);
 
 
 app.get("/", (req, res) => {
