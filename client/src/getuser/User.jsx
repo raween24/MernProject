@@ -10,31 +10,45 @@ const User = () => {
   const [logs, setLogs] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [loadingLogs, setLoadingLogs] = useState(false);
   const navigate = useNavigate();
 
   // Charger les utilisateurs
+  const fetchUsers = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.get("http://localhost:8000/api/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setUsers(res.data);
+    } catch (error) {
+      console.error("Error fetching users", error);
+      toast.error("Impossible de charger les utilisateurs");
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:8000/api/user", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUsers(res.data);
-      } catch (error) {
-        console.error("Error fetching users", error);
-        toast.error("Impossible de charger les utilisateurs");
-      }
-    };
-    fetchData();
+    fetchUsers();
   }, []);
 
   // Supprimer un utilisateur
-  const deleteUser = async (id) => {
+  const deleteUser = async (id, userName) => {
+    if (!window.confirm(`Êtes-vous sûr de vouloir supprimer l'utilisateur ${userName} ?`)) {
+      return;
+    }
+    
     try {
-      const res = await axios.delete(`http://localhost:8000/api/user/${id}`);
+      const token = localStorage.getItem("token");
+      const res = await axios.delete(`http://localhost:8000/api/user/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setUsers(users.filter((user) => user._id !== id));
       toast.success(res.data.message);
+
+      // Si modal ouvert pour cet utilisateur, rafraîchir les logs
+      if (showModal && selectedUser === userName) {
+        await showLogs(selectedUser);
+      }
     } catch (error) {
       console.error(error);
       toast.error("Erreur lors de la suppression");
@@ -66,33 +80,50 @@ const User = () => {
     navigate("/login");
   };
 
-  // Afficher les logs d'un utilisateur
+  // Afficher / rafraîchir les logs d'un utilisateur
   const showLogs = async (userName) => {
+    setLoadingLogs(true);
     try {
+      console.log("Fetching logs for:", userName);
       const token = localStorage.getItem("token");
       const res = await axios.get(`http://localhost:8000/api/logs/${userName}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log("Logs received:", res.data);
       setLogs(res.data);
       setSelectedUser(userName);
       setShowModal(true);
     } catch (err) {
       console.error("Erreur fetch logs:", err.response?.data || err.message);
       toast.error("Impossible de charger les logs");
+    } finally {
+      setLoadingLogs(false);
     }
+  };
+
+  // Fonction pour formater l'action en français
+  const formatAction = (action) => {
+    const actions = {
+      'login': 'Connexion',
+      'logout': 'Déconnexion',
+      'update': 'Modification',
+      'delete': 'Suppression',
+      'register': 'Inscription'
+    };
+    return actions[action] || action;
   };
 
   return (
     <div className="user-container">
       <div className="user-content">
         <div className="user-header">
-          <h1 className="user-title">Users Management</h1>
+          <h1 className="user-title">Gestion des Utilisateurs</h1>
           <div className="header-buttons">
             <Link to="/add" className="add-user-btn">
-              Add User
+              Ajouter un Utilisateur
             </Link>
             <button onClick={handleLogout} className="logout-btn">
-              Logout
+              Déconnexion
             </button>
           </div>
         </div>
@@ -100,8 +131,8 @@ const User = () => {
         <table className="user-table">
           <thead>
             <tr>
-              <th>S.No.</th>
-              <th>Name</th>
+              <th>N°</th>
+              <th>Nom</th>
               <th>Email</th>
               <th>Actions</th>
               <th>Logs</th>
@@ -111,23 +142,24 @@ const User = () => {
             {users.map((user, index) => (
               <tr key={user._id}>
                 <td>{index + 1}</td>
-                <td>{user.name}</td> {/* ⚠️ Si en DB c'est userName, change en user.userName */}
+                <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>
                   <Link to={`/update/${user._id}`} className="btn btn-info me-2">
-                    Edit
+                    Modifier
                   </Link>
                   <button
-                    onClick={() => deleteUser(user._id)}
+                    onClick={() => deleteUser(user._id, user.name)}
                     className="btn btn-danger"
                   >
-                    Delete
+                    Supprimer
                   </button>
                 </td>
                 <td className="logs-cell">
                   <button
-                    onClick={() => showLogs(user.name)} 
+                    onClick={() => showLogs(user.name)}
                     className="log-btn"
+                    disabled={loadingLogs}
                   >
                     <FaRegClipboard size={20} />
                   </button>
@@ -137,7 +169,7 @@ const User = () => {
           </tbody>
         </table>
 
-        {/* Modal pour afficher les logs avec table */}
+        {/* Modal pour afficher les logs */}
         {showModal && (
           <div className="modal">
             <div className="modal-content">
@@ -152,7 +184,9 @@ const User = () => {
               </div>
 
               <div className="modal-body">
-                {logs.length === 0 ? (
+                {loadingLogs ? (
+                  <p className="loading-message">Chargement des logs...</p>
+                ) : logs.length === 0 ? (
                   <p className="no-logs-message">Aucun log trouvé pour {selectedUser}.</p>
                 ) : (
                   <table className="logs-table">
@@ -167,8 +201,8 @@ const User = () => {
                       {logs.map((log) => (
                         <tr key={log._id}>
                           <td className="action-cell">
-                            <span className="action-badge">
-                              {log.action_name}
+                            <span className={`action-badge ${log.action_name}`}>
+                              {formatAction(log.action_name)}
                             </span>
                           </td>
                           <td className="message-cell">{log.message}</td>

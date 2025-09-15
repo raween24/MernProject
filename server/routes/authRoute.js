@@ -17,6 +17,6 @@ router.options("/login", (req, res) => {
 });
 router.post("/register", register);
 router.post("/login", login);
-router.post("/logout", logout); // ✅ ici logout
+router.post("/logout", logout); 
 
 export default router;
