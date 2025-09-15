@@ -3,7 +3,7 @@ import { createLog } from "../controller/logController.js";
 
 export const create = async (req, res) => {
     try {
-        const { email } = req.body; 
+        const { email, name } = req.body; // Extract name from req.body
         const userExist = await User.findOne({ email });
 
         if (userExist) {

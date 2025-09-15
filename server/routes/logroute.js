@@ -1,6 +1,5 @@
-
 import express from "express";
-import { getAllLogs, getLogsByUser } from "../controller/logController";
+import { getAllLogs, getLogsByUser  } from "../controller/logController.js";
 
 const router = express.Router();
 
@@ -9,5 +8,4 @@ router.get("/", getAllLogs);
 
 // 🔹 Récupérer les logs d’un utilisateur spécifique
 router.get("/:userName", getLogsByUser);
-
 export default router;

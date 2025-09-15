@@ -147,6 +147,20 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
+.logs-cell {
+  text-align: center; /* centre le bouton dans la cellule */
+}
+
+.log-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.log-btn:hover {
+  color: #007bff;
+}
 
 /* Responsive */
 @media (max-width: 768px) {

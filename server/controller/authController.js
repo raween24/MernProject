@@ -49,3 +49,12 @@ export const login = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+export const logout = async (req, res) => {
+  try {
+    const { userName } = req.body; // front envoie le nom
+    await createLog(userName, "logout", "User logged out");
+    res.status(200).json({ message: "Logout successful" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
