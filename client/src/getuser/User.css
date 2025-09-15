@@ -198,7 +198,58 @@
   cursor: pointer;
   font-weight: bold;
 }
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+}
 
+.modal-body {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.logs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.logs-table th,
+.logs-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.logs-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.action-badge {
+  background-color: #007bff;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.timestamp-cell {
+  font-size: 14px;
+  color: #666;
+}
+
+.no-logs-message {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+}
 /* Responsive */
 @media (max-width: 768px) {
   .user-container { padding: 1rem; }

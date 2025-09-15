@@ -66,7 +66,7 @@ const User = () => {
     navigate("/login");
   };
 
-  // Afficher les logs d’un utilisateur
+  // Afficher les logs d'un utilisateur
   const showLogs = async (userName) => {
     try {
       const token = localStorage.getItem("token");
@@ -137,30 +137,57 @@ const User = () => {
           </tbody>
         </table>
 
-        {/* Modal pour afficher les logs */}
+        {/* Modal pour afficher les logs avec table */}
         {showModal && (
           <div className="modal">
             <div className="modal-content">
-              <h3>Logs de {selectedUser}</h3>
-              <button
-                className="close-btn"
-                onClick={() => setShowModal(false)}
-              >
-                Close
-              </button>
+              <div className="modal-header">
+                <h3>Logs de {selectedUser}</h3>
+                <button
+                  className="close-btn"
+                  onClick={() => setShowModal(false)}
+                >
+                  ×
+                </button>
+              </div>
 
-              {logs.length === 0 ? (
-                <p>Aucun log trouvé pour {selectedUser}.</p>
-              ) : (
-                <ul>
-                  {logs.map((log) => (
-                    <li key={log._id}>
-                      <strong>{log.action_name}</strong> - {log.message} -{" "}
-                      {new Date(log.timestamp).toLocaleString()}
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <div className="modal-body">
+                {logs.length === 0 ? (
+                  <p className="no-logs-message">Aucun log trouvé pour {selectedUser}.</p>
+                ) : (
+                  <table className="logs-table">
+                    <thead>
+                      <tr>
+                        <th>Action</th>
+                        <th>Message</th>
+                        <th>Date & Heure</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {logs.map((log) => (
+                        <tr key={log._id}>
+                          <td className="action-cell">
+                            <span className="action-badge">
+                              {log.action_name}
+                            </span>
+                          </td>
+                          <td className="message-cell">{log.message}</td>
+                          <td className="timestamp-cell">
+                            {new Date(log.timestamp).toLocaleString('fr-FR', {
+                              year: 'numeric',
+                              month: '2-digit',
+                              day: '2-digit',
+                              hour: '2-digit',
+                              minute: '2-digit',
+                              second: '2-digit'
+                            })}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
             </div>
           </div>
         )}
