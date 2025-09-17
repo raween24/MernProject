@@ -250,6 +250,22 @@
   font-style: italic;
   padding: 20px;
 }
+.search-input {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.search-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .user-container { padding: 1rem; }

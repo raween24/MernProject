@@ -5,7 +5,7 @@ const logSchema = new mongoose.Schema({
   userName: { type: String, required: true }, 
   action_name: { 
     type: String, 
-    enum: ["login", "logout", "update_password", "update_email", "delete_account"], 
+    enum: ["login", "logout","update","delete" , "register" ], 
     required: true 
   },
   timestamp: { type: Date, default: Date.now }, 

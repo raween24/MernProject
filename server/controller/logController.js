@@ -1,6 +1,5 @@
 import Log from "../model/logmodel.js";
 
-// Crée un log (fonction à utiliser dans userController)
 export async function createLog(userName, action, message = "") {
   try {
     await Log.create({ userName, action_name: action, message });
@@ -9,7 +8,6 @@ export async function createLog(userName, action, message = "") {
   }
 }
 
-// Récupérer tous les logs
 export const getAllLogs = async (req, res) => {
   try {
     const logs = await Log.find().sort({ timestamp: -1 });
@@ -19,13 +17,20 @@ export const getAllLogs = async (req, res) => {
   }
 };
 
-// Récupérer les logs d’un utilisateur spécifique
+
 export const getLogsByUser = async (req, res) => {
+  const { userName } = req.params;
+  const { search } = req.query; 
+
   try {
-    const { userName } = req.params;
-    const logs = await Log.find({ userName }).sort({ timestamp: -1 });
-    res.status(200).json(logs);
+    const filter = { userName };
+    if (search) {
+      filter.action_name = { $regex: search, $options: "i" };
+    }
+    const logs = await Log.find(filter).sort({ timestamp: -1 });
+    res.json(logs);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error(err);
+    res.status(500).json({ message: "Erreur lors de la récupération des logs" });
   }
 };

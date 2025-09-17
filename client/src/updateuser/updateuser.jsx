@@ -74,8 +74,8 @@ const UpdateUser = () => {
           <div className="update-creative-icon">
             <i className="fas fa-user-edit"></i>
           </div>
-          <h2 className="update-creative-title">Modifier l'utilisateur</h2>
-          <p className="update-creative-subtitle">Mettez à jour les informations</p>
+          <h2 className="update-creative-title">Update User</h2>
+          <p className="update-creative-subtitle">Fill the form to update account</p>
         </div>
         
         <form onSubmit={handleSubmit} className="update-creative-form">
@@ -132,12 +132,12 @@ const UpdateUser = () => {
               {loading ? (
                 <>
                   <i className="fas fa-spinner fa-spin"></i> 
-                  Mise à jour...
+                  Update...
                 </>
               ) : (
                 <>
                   <i className="fas fa-check"></i>
-                  Mettre à jour
+                  Update
                 </>
               )}
             </button>
