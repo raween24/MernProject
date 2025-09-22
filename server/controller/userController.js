@@ -4,7 +4,7 @@ import { createLog } from "../controller/logController.js";
 export const create = async (req, res) => {
     try {
         const { email, name } = req.body;
-        const userExist = await User.findOne({ email });
+        const userExist = await User.findOne({ email , name });
 
         if (userExist) {
             return res.status(400).json({ message: "User already exists." });
